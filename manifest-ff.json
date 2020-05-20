@@ -140,6 +140,7 @@
     "*://*.harpers.org/*",
     "*://*.hbr.org/*",
     "*://*.heraldsun.com.au/*",
+    "*://*.ilmanifesto.it/*",
     "*://*.inc.com/*",
     "*://*.inquirer.com/*",
     "*://*.investorschronicle.co.uk/*",
@@ -218,7 +219,8 @@
     "*://*.volkskrant.nl/*",
     "*://*.washingtonpost.com/*",
     "*://*.wired.com/*",
-    "*://*.wsj.com/*"
+    "*://*.wsj.com/*",
+    "*://*.nzz.ch/*"
   ],
   "version": "1.7.1"
 }

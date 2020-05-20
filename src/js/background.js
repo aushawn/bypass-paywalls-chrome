@@ -28,7 +28,6 @@ const allowCookies = [
   'newstatesman.com',
   'nrc.nl',
   'nymag.com',
-  'nytimes.com',
   'ocregister.com',
   'parool.nl',
   'qz.com',
@@ -80,7 +79,6 @@ const removeCookies = [
   'newstatesman.com',
   'nrc.nl',
   'nymag.com',
-  'nytimes.com',
   'ocregister.com',
   'qz.com',
   'scientificamerican.com',
@@ -131,7 +129,6 @@ const useGoogleBotSites = [
   'mexiconewsdaily.com',
   'miamiherald.com',
   'ntnews.com.au',
-  'nytimes.com',
   'quora.com',
   'seekingalpha.com',
   'telegraph.co.uk',
@@ -174,6 +171,11 @@ const blockedRegexes = {
   'theglobeandmail.com': /theglobeandmail\.com\/pb\/resources\/scripts\/build\/chunk-bootstraps\/.+\.js/,
   'thenation.com': /thenation\.com\/.+\/paywall-script\.php/,
   'thewrap.com': /thewrap\.com\/.+\/wallkit\.js/
+};
+
+// Allowed external scripts
+const allowedRegexes = {
+  'economist.com': /infographics.economist.com\/utils\/ai2html-resizer.*\.js/
 };
 
 const userAgentDesktop = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
@@ -233,6 +235,12 @@ function getBadgeText (currentUrl) {
 extensionApi.webRequest.onBeforeRequest.addListener(function (details) {
   if (!isSiteEnabled(details) && !enabledSites.includes('generalpaywallbypass')) {
     return;
+  }
+  // Don't block allowed scripts
+  for (const domain in allowedRegexes) {
+    if (isSameDomain(details.url, domain) && details.url.match(allowedRegexes[domain])) {
+      return;
+    }
   }
   return { cancel: true };
 },
